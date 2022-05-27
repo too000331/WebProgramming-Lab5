@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>News</h1>
+
+{% if user.is_authenticated %}
+
+{% for post in object_list %}
+
+<div>
+    <a href="{% url 'article' post.pk %}">{{ post.title }}</a>
+    <div>
+        {{ post.body }}
+        {{ post.author.first_name }} {{ post.author.last_name }}
+    </div>
+</div>
+
+{% endfor %}
+
+{% else %}
+
+<div>Unauthorized users cannot view the news. Please login or register.</div>
+
+{% endif %}
+
+
+{% endblock %}

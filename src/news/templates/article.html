@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ post.title }} {% endblock %}
+
+{% block content %}
+
+<h1>{{ post.title }}</h1>
+<small>From {{ post.author.first_name }} {{ post.author.last_name }}</small>
+
+<br />
+<a href="{% url 'home' %}" class="btn btn-secondary">Home</a>
+
+<div>
+    <hr />
+    <h2>Comments</h2>
+    {% if not post.comments.all %}
+    No comments <a href="{% url 'add_comment' post.pk %}">Add</a>
+    {% else %}
+    <br>
+    {% for comment in post.comments.all %}
+    <strong>
+        {{ comment.name }} - {{ comment.date_added }}
+    </strong>
+    <br />
+    {{ comment.body }}
+    <hr />
+    {% endfor %}
+    {% endif %}
+
+    <br>
+    <a href="{% url 'add_comment' post.pk %}">Add comment</a>
+    <br>
+</div>
+
+{% endblock %}
